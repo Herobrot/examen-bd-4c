@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
-// Definición del esquema del cliente
 const clienteSchema = new mongoose.Schema({
+    IDCliente: {
+        type: String,
+        unique: true,
+    },
     nombre: {
         type: String,
         required: true,
@@ -25,6 +28,7 @@ const clienteSchema = new mongoose.Schema({
     required: true,
     },
     fechaNacimiento: Date,
+
     historialCompras: [
         {
             fechaCompra: Date,
@@ -32,10 +36,11 @@ const clienteSchema = new mongoose.Schema({
             monto: Number,
         },
     ],
-    creadoEn: {
-    type: Date,
-    default: Date.now,
-  },
+
+    creadoEl: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 const Cliente = mongoose.model('Cliente', clienteSchema);
