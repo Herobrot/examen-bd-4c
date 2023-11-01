@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { Schema, ObjectId } = mongoose;
 
 const clienteSchema = new mongoose.Schema({
     nombre: String,
@@ -10,11 +9,11 @@ const clienteSchema = new mongoose.Schema({
     fechaNacimiento: Date,
     historialCompras: [
         {
-            IDVenta: { type: ObjectId, ref: 'Ventas' }
+            IDVenta: { type: mongoose.Schema.Types.ObjectId, ref: 'Ventas' }
         },
     ],
 });
 
 const Cliente = mongoose.model('Clientes', clienteSchema);
 
-module.exports = ClientesModel;
+module.exports = Cliente;

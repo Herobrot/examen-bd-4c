@@ -29,4 +29,4 @@ const ventaSchema = new mongoose.Schema({
 
 const Venta = mongoose.model('Ventas', ventaSchema);
 
-module.exports = VentasModel;
+module.exports = Venta;

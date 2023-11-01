@@ -9,6 +9,6 @@ const vehiculoSchema = new mongoose.Schema({
     Nuevo: Boolean,
 });
 
-const Vehiculos = mongoose.model('Vehiculos', vendedorSchema);
+const Vehiculos = mongoose.model('Vehiculos', vehiculoSchema);
 
-module.exports = VehiculosModel;
+module.exports = Vehiculos;
