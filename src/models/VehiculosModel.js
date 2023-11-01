@@ -1,33 +1,14 @@
 const mongoose = require('mongoose');
 
 const vehiculoSchema = new mongoose.Schema({
-    IDVehiculos: {
-        type: String,
-        unique: true,
-    },
-    modelo: {
-        type: String,
-        required: true,
-    },
-    año: {
-        type: Number,
-        required: true,
-    },
-        color: String,
-    precio: {
-        type: Number,
-        required: true,
-        },
-    usado: {
-        type: Boolean,
-        default: false,
-    },
-    creadoEl: {
-        type: Date,
-        default: Date.now,
-    },
+    IDVehiculos: String,
+    Modelo: String,
+    año: Date,
+    color: String,
+    Precio: Number,
+    Nuevo: Boolean,
 });
 
-const Vehiculo = mongoose.model('Vehiculo', vehiculoSchema);
+const Vehiculos = mongoose.model('Vehiculos', vendedorSchema);
 
-module.exports = Vehiculo;
+module.exports = VehiculosModel;

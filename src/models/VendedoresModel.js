@@ -1,36 +1,18 @@
 const mongoose = require('mongoose');
+const { Schema, ObjectId } = mongoose;
 
 const vendedorSchema = new mongoose.Schema({
-    IDVendedor: {
-        type: String,
-        unique: true,
-    },
-    nombre: {
-        type: String,
-        required: true,
-    },
-    apellido: {
-        type: String,
-        required: true,
-    },
-    correo: {
-        type: String,
-        unique: true,
-        required: true,
-    },
+    nombre: String,
+    apellido: String,
+    correo: String,
     telefono: String,
-    direccion: String,
-    fechaNacimiento: Date,
-    turno: {
-        type: String,
-        enum: ['mañana', 'tarde'], 
-    },
-    creadoEn: {
-        type: Date,
-        default: Date.now,
-    },
+    vehiculos: [
+        {
+            IDVehiculos: { type: ObjectId, ref: 'Vehiculos' }
+        },
+    ],
 });
 
-const Vendedor = mongoose.model('Vendedor', vendedorSchema);
+const Vendedor = mongoose.model('Vendedores', vendedorSchema);
 
-module.exports = Vendedor;
+module.exports = VendedoresModel;

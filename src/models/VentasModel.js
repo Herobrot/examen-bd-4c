@@ -1,32 +1,32 @@
 const mongoose = require('mongoose');
 
 const ventaSchema = new mongoose.Schema({
-    IDVenta: {
+    fechaVenta: Date,
+    estatus: {
         type: String,
-        unique: true,
-    },
-    fechaVenta: {
-        type: Date,
-        required: true,
-    },
-    montoVenta: {
-        type: Number,
-        required: true,
+        enum: ['Pagado', 'No Pagado', 'Devuelto'],
     },
     tipoPago: {
         type: String,
-        enum: ['Contado', '3-Meses', '6-Meses', '12-Meses'],
-        required: true,
+        enum: ['Contado', 'Credito'],
     },
-    devoluciones: [
-        {
-            fechaDevolucion: Date,
-            montoDevolucion: Number,
-            motivo: String,
-        },
-    ],
+    mesesPorCobro: String,
+    mesesPorPago: String,
+
+    vendedor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Vendedores',
+    },
+    vehiculo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Vehiculos',
+    },
+    cliente: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Clientes',
+    },
 });
 
-const Venta = mongoose.model('Venta', ventaSchema);
+const Venta = mongoose.model('Ventas', ventaSchema);
 
-module.exports = Venta;
+module.exports = VentasModel;

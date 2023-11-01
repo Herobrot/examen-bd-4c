@@ -1,48 +1,20 @@
 const mongoose = require('mongoose');
+const { Schema, ObjectId } = mongoose;
 
 const clienteSchema = new mongoose.Schema({
-    IDCliente: {
-        type: String,
-        unique: true,
-    },
-    nombre: {
-        type: String,
-        required: true,
-    },
-        apellido: {
-        type: String,
-    required: true,
-    },
-    correo: {
-        type: String,
-        unique: true,
-    required: true,
-    },
-    telefono: {
-        type: String,
-        unique: true,
-    required: true,
-    },
-    direccion: {
-    type: String,
-    required: true,
-    },
+    nombre: String,
+    apellido: String,
+    correo: String,
+    telefono: String,
+    direccion: String,
     fechaNacimiento: Date,
-
     historialCompras: [
         {
-            fechaCompra: Date,
-            producto: String,
-            monto: Number,
+            IDVenta: { type: ObjectId, ref: 'Ventas' }
         },
     ],
-
-    creadoEl: {
-        type: Date,
-        default: Date.now,
-    },
 });
 
-const Cliente = mongoose.model('Cliente', clienteSchema);
+const Cliente = mongoose.model('Clientes', clienteSchema);
 
-module.exports = Cliente;
+module.exports = ClientesModel;
