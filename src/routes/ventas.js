@@ -14,6 +14,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+      const item = await Venta.findOne({ _id: req.params.id});
+      res.json(item);
+      console.log(item);
+  } catch (err) {
+      res.status(404).json({error: err.message});
+  }
+})
+
 router.post('/', async (req, res) => {
   const newItemData = req.body;
 
