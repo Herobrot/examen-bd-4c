@@ -44,7 +44,7 @@ router.get('/:id', async (req, res) => {
       const updatedItemData = req.body;
       
       try {
-        const result = await Vendedor.findOneAndUpdate({ IDVendedor: itemId }, updatedItemData, { new: true });
+        const result = await Vendedor.findOneAndUpdate({ _id: itemId }, updatedItemData, { new: true });
         
         if (result) {
           res.json(result);
@@ -60,7 +60,7 @@ router.get('/:id', async (req, res) => {
     const userId = req.params.id;
   
     try {
-      const result = await Vendedor.findOneAndRemove({ id: userId });
+      const result = await Vendedor.findOneAndRemove({ _id: userId });
   
       if (result) {
         res.json({ message: 'El usuario fue eliminado' });

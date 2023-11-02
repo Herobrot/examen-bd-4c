@@ -45,26 +45,27 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-    const updatedItemData = req.body;
+  const updatedItemData = req.body;
+  
+  try {
+    const result = await Vehiculo.findOneAndUpdate({ _id: req.params.id }, updatedItemData, { new: true });
     
-    try {
-      const result = await Vehiculo.findOneAndUpdate({ IDVehiculos: (req.params.IDVehiculos) }, updatedItemData, { new: true });
-      
-      if (result) {
-        res.json(result);
-      } else {
-        res.status(404).json({ error: 'Objeto no encontrado' });
-      }
-    } catch (err) {
-      res.status(500).json({ error: err.message });
+    if (result) {
+      res.json(result);
+    } else {
+      res.status(404).json({ error: 'Objeto no encontrado' });
     }
-  });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 router.delete('/:id', async (req, res) => {
   const userId = req.params.id;
 
   try {
-    const result = await Vehiculo.findOneAndRemove({ _id: ObjectId(userId) });
+    const result = await Vehiculo.findOneAndRemove({ _id: userId });
 
     if (result) {
       res.json({ message: 'El vehiculo fue eliminado' });

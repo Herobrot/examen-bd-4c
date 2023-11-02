@@ -46,7 +46,7 @@ router.put('/:id', async (req, res) => {
     const updatedItemData = req.body;
     
     try {
-      const result = await Venta.findOneAndUpdate({ _id: ObjectId(req.params.id) }, updatedItemData, { new: true });
+      const result = await Venta.findOneAndUpdate(req.params._id, updatedItemData, { new: true });
       
       if (result) {
         res.json(result);
@@ -62,7 +62,7 @@ router.delete('/:id', async (req, res) => {
   const userId = req.params.id;
 
   try {
-    const result = await Venta.findOneAndRemove({ _id: ObjectId(userId) });
+    const result = await Venta.findOneAndRemove({ _id: (userId) });
 
     if (result) {
       res.json({ message: 'El usuario fue eliminado' });

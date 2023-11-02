@@ -61,16 +61,13 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   const userId = req.params.id;
-
-
-  const result = await Cliente.findOneAndDelete({ _id: userId });
-  
   try {
     const result = await Cliente.findOneAndDelete({ _id: userId });
 
     if (result) {
       res.json({ message: 'El usuario fue eliminado' });
     } else {
+      
       res.status(404).json({ error: 'Usuario no encontrado' });
     }
   } catch (err) {
