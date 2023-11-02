@@ -33,26 +33,30 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-    const updatedItemData = req.body;
+  const updatedItemData = req.body;
+  
+  try {
+    const result = await Cliente.findByIdAndUpdate(req.params.id, updatedItemData, { new: true });
     
-    try {
-      const result = await Cliente.findOneAndUpdate({ _id: ObjectId(req.params.id) }, updatedItemData, { new: true });
-      
-      if (result) {
-        res.json(result);
-      } else {
-        res.status(404).json({ error: 'Objeto no encontrado' });
-      }
-    } catch (err) {
-      res.status(500).json({ error: err.message });
+    if (result) {
+      res.json(result);
+    } else {
+      res.status(404).json({ error: 'Objeto no encontrado' });
     }
-  });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 router.delete('/:id', async (req, res) => {
   const userId = req.params.id;
 
+
+  const result = await Cliente.findOneAndDelete({ _id: userId });
+  
   try {
-    const result = await Cliente.findOneAndRemove({ _id: ObjectId(userId) });
+    const result = await Cliente.findOneAndDelete({ _id: userId });
 
     if (result) {
       res.json({ message: 'El usuario fue eliminado' });
@@ -63,6 +67,7 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 
 module.exports = router;
