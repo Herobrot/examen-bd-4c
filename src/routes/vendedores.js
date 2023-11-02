@@ -9,7 +9,17 @@ router.get('/', async (req, res) => {
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
-  });
+});
+
+router.get('/:id', async (req, res) => {
+  try {
+      const item = await Vendedor.findOne({ _id: req.params.id});
+      res.json(item);
+      console.log(item);
+  } catch (err) {
+      res.status(404).json({error: err.message});
+  }
+})
   
   router.post('/', async (req, res) => {
     const newItemData = req.body;

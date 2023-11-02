@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const ObjectId = require('mongoose').ObjectId;
+const ObjectId = require('mongoose').Types.ObjectId;
 
-const Vechiculo = require('../models/VehiculosModel');
+const Vehiculo = require('../models/VehiculosModel');
 
 router.get('/', async (req, res) => {
     try {
-        const items = await Vechiculo.find();
+        const items = await Vehiculo.find();
         res.json(items);
         console.log(items)
     } catch (err) {
@@ -14,11 +14,21 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const item = await Vehiculo.findOne({ _id: req.params.id});
+        res.json(item);
+        console.log(item);
+    } catch (err) {
+        res.status(404).json({error: err.message});
+    }
+})
+
 router.post('/', async (req, res) => {
     const newItemData = req.body;
 
     try {
-        const newItem = new Vechiculo(newItemData);
+        const newItem = new Vehiculo(newItemData);
         const result = await newItem.save();
 
         if (result) {
@@ -38,7 +48,7 @@ router.put('/:id', async (req, res) => {
     const updatedItemData = req.body;
     
     try {
-      const result = await Cliente.findOneAndUpdate({ _id: ObjectId(req.params.id) }, updatedItemData, { new: true });
+      const result = await Vehiculo.findOneAndUpdate({ IDVehiculos: (req.params.IDVehiculos) }, updatedItemData, { new: true });
       
       if (result) {
         res.json(result);
@@ -54,7 +64,7 @@ router.delete('/:id', async (req, res) => {
   const userId = req.params.id;
 
   try {
-    const result = await Cliente.findOneAndRemove({ _id: ObjectId(userId) });
+    const result = await Vehiculo.findOneAndRemove({ _id: ObjectId(userId) });
 
     if (result) {
       res.json({ message: 'El vehiculo fue eliminado' });
